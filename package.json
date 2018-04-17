@@ -1,7 +1,7 @@
 {
-  "name": "dtx-xa",
-  "version": "0.0.1",
-  "description": "DTX-XA audio to WAV converter",
+  "name": "xa-dtx",
+  "version": "0.0.2",
+  "description": "DTX XA audio to WAV converter",
   "main": "index.js",
   "scripts": {
     "test": "mocha tests/test.js"
