@@ -1,6 +1,6 @@
 {
   "name": "xa-dtx",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "DTX XA audio to WAV converter",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/drummaniac/dtx-xa.git"
+    "url": "git://github.com/drummaniac/xa-dtx.git"
   },
   "dependencies": {},
   "devDependencies": {
