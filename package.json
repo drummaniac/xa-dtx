@@ -4,7 +4,7 @@
   "description": "DTX XA audio to WAV converter",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/test.js"
+    "test": "mocha tests"
   },
   "repository": {
     "type": "git",
