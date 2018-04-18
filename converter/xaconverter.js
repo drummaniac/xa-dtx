@@ -5,29 +5,33 @@ let XAStream = require('./xastream');
 let WavStream = require('./wavstream');
 
 class XAConverter {
-  constructor(path) {
-    this._path = path;
-
+  constructor() {
     this._c1map = [0, 240, 460, 392, 488];
     this._c2map = [0, 0, 208, 220, 240];
   }
 
-  convert() {
-    return new Promise((resolve, reject) => {
-      fs.readFile(this._path, (error, buffer) => {
-        if (error) {
-          reject(error);
-          return;
-        }
+  convert(input) {
+    if (typeof input === 'string') {
+      return new Promise((resolve, reject) => {
+        fs.readFile(input, (error, buffer) => {
+          if (error) {
+            return reject(error);
+          }
 
-        return this
-          .loadXAStream(buffer)
-          .then(() => this.prepareWavStream())
-          .then(() => this.decodeXAStream())
-          .then(resolve);
+          return resolve(this.convertBuffer(buffer));
+        });
       });
+    }
+    else {
+      return this.convertBuffer(input);
+    }
+  }
 
-    })
+  convertBuffer(buffer) {
+    return this
+      .loadXAStream(buffer)
+      .then(() => this.prepareWavStream())
+      .then(() => this.decodeXAStream())
   }
 
   loadXAStream(buffer) {
