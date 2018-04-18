@@ -1,0 +1,10 @@
+# Ignore project specific files
+/.idea
+/node_modules
+/tmp
+
+# Ignore tests
+/tests
+
+# Ignore travis
+/travis.yml
