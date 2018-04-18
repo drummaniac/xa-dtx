@@ -8,34 +8,49 @@ let fs = require('fs');
 let convert = require('../converter');
 
 describe('convert()', () => {
-  let srcPath = './tests/res/test.xa';
+  describe('from file', () => {
+    let srcPath = './tests/res/test.xa';
 
-  describe('to file', () => {
-    let dstPath = './tests/res/test.wav';
+    describe('to file', () => {
+      let dstPath = './tests/res/test.wav';
 
-    it('should return true', done => {
-      convert(srcPath, dstPath)
-        .should.eventually.to.equal(true)
-        .notify(done);
+      it('should return true', done => {
+        convert(srcPath, dstPath)
+          .should.eventually.to.equal(true)
+          .notify(done);
+      });
+
+      it('should create a file', done => {
+        convert(srcPath, dstPath)
+          .then(() => { return Promise.resolve(fs.existsSync(dstPath)) })
+          .should.eventually.to.equal(true)
+          .notify(done);
+      });
+
+      afterEach(() => {
+        fs.unlinkSync(dstPath);
+      });
     });
 
-    it('should create a file', done => {
-      convert(srcPath, dstPath)
-        .then(() => { return Promise.resolve(fs.existsSync(dstPath)) })
-        .should.eventually.to.equal(true)
-        .notify(done);
-    });
-
-    afterEach(() => {
-      fs.unlinkSync(dstPath);
+    describe('to buffer', () => {
+      it('should return WavStream with buffer', done => {
+        convert(srcPath)
+          .should.eventually.has.property('buffer')
+          .notify(done);
+      });
     });
   });
 
-  describe('to buffer', () => {
-    it('should return WavStream with buffer', done => {
-      convert(srcPath)
-        .should.eventually.has.property('buffer')
-        .notify(done);
+  describe('from buffer', () => {
+    let srcPath = './tests/res/test.xa';
+    let srcBuffer = fs.readFileSync(srcPath);
+
+    describe('to buffer', () => {
+      it('should return WavStream with buffer', done => {
+        convert(srcBuffer)
+          .should.eventually.has.property('buffer')
+          .notify(done);
+      });
     });
   });
 });
